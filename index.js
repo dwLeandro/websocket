@@ -6,7 +6,7 @@ const controller = require('./controller')
 
 io.on('connection', (socket) => {
 		console.log('Un cliente se ha conectado');
-		/*
+		
 		socket.emit('handshake','');
 		
 		io.on('handshake', (data) => {
@@ -14,7 +14,7 @@ io.on('connection', (socket) => {
 			console.log('se conecto el puesto ' + data.puesto);
 		})
 		
-		*/
+	
 		
 	})
 

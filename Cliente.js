@@ -3,9 +3,10 @@ const socket = io.connect('http://localhost:4000');
 
 socket.on('connect', () => {
   console.log('Successfully connected!');
-  socket.emit('handshake', {puesto: 1});
 });
 
-  
-
-
+/*
+socket.on('handshake', (data) => {
+			socket.emit('handshake', {puesto: 1});
+		})
+*/
