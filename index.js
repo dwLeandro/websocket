@@ -4,7 +4,6 @@ var io = require('socket.io')(http);
 const controller = require('./controller')
 var clientes = new Map();
 
-
 io.on('connection', (socket) => {
 		console.log('Un cliente se ha conectado');
 		
@@ -18,10 +17,11 @@ io.on('connection', (socket) => {
 		
 		
 		socket.on('disconnect', function () {
-      console.log('A user disconnected');});
+			var puesto = clientes.get(socket.id)
+			console.log('Se desconecto el puesto ' + puesto);
+			clientes.delete(socket.id)
+		});
 })
-
-
 			
 //router			
 app.get('/gfs120/modo/dd/:id', controller.setModoDD)
