@@ -8,27 +8,50 @@ io.on('connection', (socket) => {
 		console.log('Un cliente se ha conectado');
 		
 		
-		socket.emit('handshake','');
-		
 		socket.on('handshake', (data) => {
-			clientes.set(socket.id, data.puesto)
+			//clientes.set(data.puesto, socket)
+		 	clientes.set(socket, data.puesto)
 			console.log('se conecto el puesto ' + data.puesto);
 		})
 		
 		
-		socket.on('disconnect', function () {
-			var puesto = clientes.get(socket.id)
+		socket.on('disconnect', () => {
+			var puesto = clientes.get(socket)
 			console.log('Se desconecto el puesto ' + puesto);
-			clientes.delete(socket.id)
+			clientes.delete(socket)
 		});
 })
 			
 //router			
-app.get('/gfs120/modo/dd/:id', controller.setModoDD)
-app.get('/gfs120/modo/mixto/:id', controller.setModoMixto)
+app.get('/gfs120/modo/dd/:id', (req, res) => {
+		const puestoSolicitado = parseInt(req.params.id)
+		var json= {puesto: puestoSolicitado, modo: "DD"};
+		io.sockets.emit('setModo', json);
+		res.send("todo ok")
+	})
+
+
+app.get('/gfs120/modo/mixto/:id', (req, res) => {
+		const puestoSolicitado = parseInt(req.params.id)
+		var json= {puesto: puestoSolicitado, modo: "Mixto"};
+		io.sockets.emit('setModo', json);
+		res.send("todo ok")
+	})
+	
+app.get('/gfs120/moneda/:id', (req, res) => {
+		const puestoSolicitado = parseInt(req.params.id)
+		const monedaSolicitada = req.query["moneda"]
+		var json= {puesto: puestoSolicitado, moneda: monedaSolicitada};
+		io.sockets.emit('setMoneda', json);
+		res.send("todo ok")
+	})
+	
+	
+	
 app.get('*',(request, response) => { response.sendStatus(404)})
 
+
 //172.21.32.60
-http.listen(4000,'localhost', () => {
+http.listen(4000,'172.21.32.60', () => {
 			console.log('Server running on port 4000')
 			})
