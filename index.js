@@ -23,27 +23,27 @@ io.on('connection', (socket) => {
 })
 			
 //router			
-app.get('/gfs120/modo/dd/:id', (req, res) => {
+app.get('/gfs120/:id/modo/dd', (req, res) => {
 		const puestoSolicitado = parseInt(req.params.id)
 		var json= {puesto: puestoSolicitado, modo: "DD"};
 		io.sockets.emit('setModo', json);
-		res.send("todo ok")
+		res.send("Comando enviado")
 	})
 
 
-app.get('/gfs120/modo/mixto/:id', (req, res) => {
+app.get('/gfs120//:id/modo/mixto', (req, res) => {
 		const puestoSolicitado = parseInt(req.params.id)
 		var json= {puesto: puestoSolicitado, modo: "Mixto"};
 		io.sockets.emit('setModo', json);
-		res.send("todo ok")
+		res.send("Comando enviado")
 	})
 	
-app.get('/gfs120/moneda/:id', (req, res) => {
+app.get('/gfs120/:id/moneda', (req, res) => {
 		const puestoSolicitado = parseInt(req.params.id)
 		const monedaSolicitada = req.query["moneda"]
 		var json= {puesto: puestoSolicitado, moneda: monedaSolicitada};
 		io.sockets.emit('setMoneda', json);
-		res.send("todo ok")
+		res.send("Comando enviado")
 	})
 	
 	
