@@ -31,7 +31,7 @@ app.get('/gfs120/:id/modo/dd', (req, res) => {
 	})
 
 
-app.get('/gfs120//:id/modo/mixto', (req, res) => {
+app.get('/gfs120/:id/modo/mixto', (req, res) => {
 		const puestoSolicitado = parseInt(req.params.id)
 		var json= {puesto: puestoSolicitado, modo: "Mixto"};
 		io.sockets.emit('setModo', json);
