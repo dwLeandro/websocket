@@ -21,29 +21,37 @@ io.on('connection', (socket) => {
 			clientes.delete(socket)
 		});
 })
+
+
+const sendCommand = (response, json, puesto, comando) => {
+	if(Array.from(clientes.values()).indexOf(puesto) < 0){
+			response.send("Dispositivo desconectado");
+		} else {
+			io.sockets.emit(comando, json);
+			response.send("Comando enviado")
+		}
+  
+}
 			
 //router			
 app.get('/gfs120/:id/modo/dd', (req, res) => {
 		const puestoSolicitado = parseInt(req.params.id)
-		var json= {puesto: puestoSolicitado, modo: "DD"};
-		io.sockets.emit('setModo', json);
-		res.send("Comando enviado")
+		var json= {puesto: puestoSolicitado, modo: "DD"}
+		sendCommand(res, json, puestoSolicitado, 'setModo')	
 	})
 
 
 app.get('/gfs120/:id/modo/mixto', (req, res) => {
 		const puestoSolicitado = parseInt(req.params.id)
 		var json= {puesto: puestoSolicitado, modo: "Mixto"};
-		io.sockets.emit('setModo', json);
-		res.send("Comando enviado")
+		sendCommand(res, json, puestoSolicitado, 'setModo');	
 	})
 	
 app.get('/gfs120/:id/moneda', (req, res) => {
 		const puestoSolicitado = parseInt(req.params.id)
 		const monedaSolicitada = req.query["moneda"]
 		var json= {puesto: puestoSolicitado, moneda: monedaSolicitada};
-		io.sockets.emit('setMoneda', json);
-		res.send("Comando enviado")
+		sendCommand(res, json, puestoSolicitado, 'setMoneda')
 	})
 	
 	
@@ -55,3 +63,8 @@ app.get('*',(request, response) => { response.sendStatus(404)})
 http.listen(4000,'172.21.32.60', () => {
 			console.log('Server running on port 4000')
 			})
+
+			
+			
+			
+			
