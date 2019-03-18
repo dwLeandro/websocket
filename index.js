@@ -24,7 +24,7 @@ io.on('connection', (socket) => {
 
 
 const sendCommand = (response, json, puesto, comando) => {
-	if(Array.from(clientes.values()).indexOf(puesto) < 0){
+	if((Array.from(clientes.values())).indexOf(puesto) < 0){
 			response.send("Dispositivo desconectado");
 		} else {
 			io.sockets.emit(comando, json);
@@ -44,6 +44,12 @@ app.get('/gfs120/:id/modo/dd', (req, res) => {
 app.get('/gfs120/:id/modo/mixto', (req, res) => {
 		const puestoSolicitado = parseInt(req.params.id)
 		var json= {puesto: puestoSolicitado, modo: "Mixto"};
+		sendCommand(res, json, puestoSolicitado, 'setModo');	
+	})
+	
+app.get('/gfs120/:id/modo/count', (req, res) => {
+		const puestoSolicitado = parseInt(req.params.id)
+		var json= {puesto: puestoSolicitado, modo: "Count"};
 		sendCommand(res, json, puestoSolicitado, 'setModo');	
 	})
 	
