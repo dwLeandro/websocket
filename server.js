@@ -1,7 +1,6 @@
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-const controller = require('./controller')
 var clientes = new Map();
 
 io.on('connection', (socket) => {
