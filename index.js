@@ -56,8 +56,14 @@ app.get('/gfs120/:id/modo/count', (req, res) => {
 app.get('/gfs120/:id/moneda', (req, res) => {
 		const puestoSolicitado = parseInt(req.params.id)
 		const monedaSolicitada = req.query["moneda"]
-		var json= {puesto: puestoSolicitado, moneda: monedaSolicitada};
-		sendCommand(res, json, puestoSolicitado, 'setMoneda')
+		var monedas = ["peso", "euro", "dolar"]
+		if(monedas.indexOf(monedaSolicitada) < 0){
+			res.send("Invalid currency")
+		} else {
+			var json= {puesto: puestoSolicitado, moneda: monedaSolicitada};
+			sendCommand(res, json, puestoSolicitado, 'setMoneda')
+		}
+		
 	})
 	
 	
