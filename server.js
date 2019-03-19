@@ -2,6 +2,7 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var clientes = new Map();
+const config = require('./config')
 
 io.on('connection', (socket) => {
 		console.log('Un cliente se ha conectado');
@@ -71,7 +72,7 @@ app.get('*',(request, response) => { response.sendStatus(404)})
 
 
 //172.21.32.60
-http.listen(4000,'172.21.32.60', () => {
+http.listen(config.puerto,config.ip, () => {
 			console.log('Server running on port 4000')
 			})
 
