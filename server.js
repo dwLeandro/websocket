@@ -65,7 +65,19 @@ app.get('/gfs120/:id/moneda', (req, res) => {
 		}
 		
 	})
-	
+
+app.get('/gfs120/:id/db', (req, res) => {
+		const puestoSolicitado = parseInt(req.params.id)
+		const valorSolicitado = req.query["valor"]
+		var json= {puesto: puestoSolicitado, valor: "valorSolicitado"}
+		var valores = ["true", "false"]
+		if(valores.indexOf(valorSolicitado) < 0){
+			res.send("Invalid value")
+		} else {
+			var json= {puesto: puestoSolicitado, valor: valorSolicitado};
+			sendCommand(res, json, puestoSolicitado, 'insertDB')
+		}
+	})	
 	
 	
 app.get('*',(request, response) => { response.sendStatus(404)})
