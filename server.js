@@ -58,7 +58,7 @@ app.get('/gfs120/:id/moneda', (req, res) => {
 		const monedaSolicitada = req.query["moneda"]
 		var monedas = ["peso", "euro", "dolar"]
 		if(monedas.indexOf(monedaSolicitada) < 0){
-			res.send("Moneda invalida")
+			res.send("Valor invalido")
 		} else {
 			var json= {puesto: puestoSolicitado, moneda: monedaSolicitada};
 			sendCommand(res, json, puestoSolicitado, 'setMoneda')
