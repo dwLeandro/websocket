@@ -77,7 +77,15 @@ app.get('/gfs120/:id/db', (req, res) => {
 			var json= {puesto: puestoSolicitado, valor: valorSolicitado};
 			sendCommand(res, json, puestoSolicitado, 'insertDB')
 		}
-	})	
+	})
+
+app.get('/uw600/:id/modo/:pattern', (req, res) => {
+		const puestoSolicitado = parseInt(req.params.id)
+		const modoSolicitado = parseInt(req.params.pattern)
+		var json= {puesto: puestoSolicitado, modo: modoSolicitado}
+		sendCommand(res, json, puestoSolicitado, 'setModo')	
+	})
+	
 	
 	
 app.get('*',(request, response) => { response.sendStatus(404)})
