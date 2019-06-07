@@ -86,6 +86,12 @@ app.get('/uw600/:id/modo/:pattern', (req, res) => {
 		sendCommand(res, json, puestoSolicitado, 'setModo')	
 	})
 	
+app.get('/uw600/:id/finalizar', (req, res) => {
+		const puestoSolicitado = parseInt(req.params.id)
+		var json= {puesto: puestoSolicitado}
+		sendCommand(res, json, puestoSolicitado, 'startTX')	
+	})
+	
 	
 	
 app.get('*',(request, response) => { response.sendStatus(404)})
